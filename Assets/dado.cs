@@ -9,15 +9,32 @@ public class dado : MonoBehaviour
     //public int valorAbajo = 0;
     public int[] indicesCorrelacion;
     public char[] indicesCorrelacionChar;
+    [SerializeField]
+    Vector3 posInitial;
+    private void Awake()
+    {
+        posInitial = new Vector3( transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+    }
 
     void Start()
     {
         //rayDirection = Vector3.forward;
-       // rayDirection = transform.forward;
+        // rayDirection = transform.forward;
+
+        Debug.DrawRay(transform.position,transform.forward);
+        
 
 
+        gameObject.SetActive(false);
+    }
+
+
+    public void resetPos()
+    {
+        transform.position = posInitial;
 
     }
+
 
     // Update is called once per frame
     void Update()

@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
-using UnityEngine;
 
+using UnityEngine;
+using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -9,20 +9,18 @@ public class gameManager : MonoBehaviour
 
     public float torqueMax = 10f;
     public float velocityMax = 10f;
-
-
     void Start()
     {
         System.Array.Resize(ref(valorDados),dados.Length);
 
+        //lanzaDados();
 
-
-        lanzaDados();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         
     }
 
@@ -32,6 +30,7 @@ public class gameManager : MonoBehaviour
 
         foreach (var dado in dados)
         {
+            dado.resetPos();
             Vector3 randomAngleEuler = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
             dado.gameObject.transform.localEulerAngles = randomAngleEuler;
             dado.gameObject.SetActive(true);
@@ -44,7 +43,6 @@ public class gameManager : MonoBehaviour
 
             dado.gameObject.GetComponent<Rigidbody>().angularVelocity = randomTorque;
             //dado.gameObject.GetComponent<Rigidbody>().linearVelocity = -transform.up*100;
-            
 
         }
 
