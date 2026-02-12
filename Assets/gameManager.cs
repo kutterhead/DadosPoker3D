@@ -3,9 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
+
+    public Text textoPuntos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public dado[] dados;
     public int[] valorDados;
+    public int puntosTotales = 0;
+
+
+
 
     public float torqueMax = 10f;
     public float velocityMax = 10f;
@@ -38,10 +44,10 @@ public class gameManager : MonoBehaviour
             float velocityZ = Random.Range(0, velocityMax);
             float velocityX = Random.Range(0, velocityMax);
 
-            dado.gameObject.GetComponent<Rigidbody>().linearVelocity = new Vector3(velocityX, -velocityY, velocityZ);
+            dado.rb.linearVelocity = new Vector3(velocityX, -velocityY, velocityZ);
             Vector3 randomTorque = new Vector3(Random.Range(-torqueMax, torqueMax), Random.Range(-torqueMax, torqueMax), Random.Range(-torqueMax, torqueMax));
 
-            dado.gameObject.GetComponent<Rigidbody>().angularVelocity = randomTorque;
+            dado.rb.angularVelocity = randomTorque;
             //dado.gameObject.GetComponent<Rigidbody>().linearVelocity = -transform.up*100;
 
         }
@@ -59,9 +65,16 @@ public class gameManager : MonoBehaviour
         for (int i=0; i< dados.Length;i++)
         {
             valorDados[i] = dados[i].valorDado;
-            jugada += dados[i].valorDado + ",";
+            jugada += dados[i].valorDado + "+";
+            puntosTotales += dados[i].valorDado;
         }
+
+        jugada = jugada.Substring(0, jugada.LastIndexOf("+"));
+        jugada += "=";
+        jugada += puntosTotales.ToString();
+        textoPuntos.text = jugada;
         Debug.Log(jugada);
     }
 
+   
 }

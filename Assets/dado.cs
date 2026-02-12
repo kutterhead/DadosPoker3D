@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class dado : MonoBehaviour
 {
+    public AudioSource fuente;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     Vector3 rayDirection = Vector3.forward;
     public bool[] sides;
@@ -11,9 +12,13 @@ public class dado : MonoBehaviour
     public char[] indicesCorrelacionChar;
     [SerializeField]
     Vector3 posInitial;
+
+    public Rigidbody rb;
     private void Awake()
     {
         posInitial = new Vector3( transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -96,6 +101,7 @@ public class dado : MonoBehaviour
                 Debug.DrawRay(transform.position, rayDirection, Color.red);
 
                 sides[i]=false;
+               
             }
            
             
@@ -107,5 +113,13 @@ public class dado : MonoBehaviour
 
 
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        fuente.pitch = Random.Range(0.85f,1.15f);
+        fuente.volume = rb.linearVelocity.magnitude / 10;
+        fuente.Play();
+
+        print(rb.linearVelocity.magnitude);
     }
 }
